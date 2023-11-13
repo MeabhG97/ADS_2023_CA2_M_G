@@ -19,3 +19,9 @@ cd build/app
 cmake -S . -B build
 cmake --build build -t test
 ```
+
+- Tests can also be accessed at
+```bash
+cd build/test
+./tests
+```
