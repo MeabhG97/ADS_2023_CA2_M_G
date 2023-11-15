@@ -8,6 +8,7 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(tests
     XMLValidationTests.cpp
+    TreeTests.cpp
 )
 
 target_link_libraries(
