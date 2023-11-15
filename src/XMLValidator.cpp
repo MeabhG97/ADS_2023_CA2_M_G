@@ -47,7 +47,6 @@ bool XMLValidator::validateXML(vector<string> file) {
             tags.push(tag);
 
             line = line.substr(tagEnd + 1);
-            // cout << line << endl;
 
             // Closing tag
             tagStart = line.find_first_of("<");
