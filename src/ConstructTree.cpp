@@ -11,6 +11,8 @@ Node *ConstructTree::constructTree(vector<string> file) {
         }
 
         if(file[i] == "<file>"){
+            addFileNode(parseLine(file[i + 1]), parseLine(file[i+2]), parseLine(file[i+3]));
+            i += 3;
             continue;
         }
 
@@ -36,8 +38,21 @@ void ConstructTree::addDirNode(string name) {
     nodeStack.push(node);
 }
 
-void ConstructTree::addFileNode(string name, int size, string type) {
+void ConstructTree::addFileNode(string name, string size, string type) {
+    int sp = size.find_first_of(' ');
+    size = size.substr(0, sp);
+    Node* node = new File(name, stoi(size), type);
 
+    if(nodeStack.empty()){
+        return;
+    }
+
+    if(!dynamic_cast<Dir*>(nodeStack.top())){
+        return;
+    }
+
+    Dir* parent = dynamic_cast<Dir*>(nodeStack.top());
+    parent->children.push_back(node);
 }
 
 Node* ConstructTree::completeDirNode() {
@@ -55,7 +70,7 @@ Node* ConstructTree::completeDirNode() {
 string ConstructTree::parseLine(string line){
     int start = line.find_first_of('>') + 1;
     int end = line.find_last_of('<') - 1;
-    int range = end - start;
+    int range = end - start + 1;
 
     return line.substr(start, range);
 }

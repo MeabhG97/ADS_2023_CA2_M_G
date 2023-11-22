@@ -15,7 +15,7 @@ public:
     Node* constructTree(vector<string>);
 private:
     void addDirNode(string);
-    void addFileNode(string, int, string);
+    void addFileNode(string, string, string);
     Node* completeDirNode();
     stack<Node*> nodeStack;
     string parseLine(string);
