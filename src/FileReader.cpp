@@ -23,12 +23,12 @@ vector<string> FileReader::readFile(string path){
 }
 
 string FileReader::trim(string str){
-    const int strStart = str.find_first_not_of(" \t\n");
+    const int strStart = str.find_first_of('<');
         if(strStart == string::npos){
             return "";
         }
 
-        const int strEnd = str.find_last_not_of(" \t\n");
+        const int strEnd = str.find_last_of(">");
         const int strRange = strEnd - strStart + 1;
 
         return str.substr(strStart, strRange);
