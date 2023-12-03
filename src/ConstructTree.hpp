@@ -12,11 +12,10 @@ using namespace std;
 
 class ConstructTree {
 public:
-    Node* constructTree(vector<string>);
+    static Node* constructTree(vector<string>);
 private:
-    void addDirNode(string);
-    void addFileNode(string, string, string);
-    Node* completeDirNode();
-    stack<Node*> nodeStack;
-    string parseLine(string);
+    static void addDirNode(string, stack<Node*>&);
+    static void addFileNode(string, string, string, stack<Node*>&);
+    static Node* completeDirNode(stack<Node*>&);
+    static string parseLine(string);
 };

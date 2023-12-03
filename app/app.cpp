@@ -17,6 +17,8 @@ int main() {
         cout << "Valid XML" << endl;
     }
     
-    ConstructTree ct;
-    Node* root = ct.constructTree(fileContents);
+    Node* root = ConstructTree::constructTree(fileContents);
+    int count = root->count();
+    cout << count << endl;
+    cout << root->getSize() << endl;
 }
