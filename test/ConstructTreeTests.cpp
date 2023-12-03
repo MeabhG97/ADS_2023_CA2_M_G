@@ -4,12 +4,11 @@
 #include "../src/Dir.hpp"
 
 TEST(ConstructTreeTests, AddingDirNode) {
-    ConstructTree ct;
     vector<string> vs;
     vs.push_back("<dir>");
     vs.push_back("<name>dir</name>");
     vs.push_back("</dir>");
-    Node *root = ct.constructTree(vs);
+    Node *root = ConstructTree::constructTree(vs);
 
     ASSERT_NE(root, nullptr);
     EXPECT_EQ(root->name, "dir");
@@ -25,7 +24,7 @@ TEST(ConstructTreeTests, AddingDirNode) {
     vs.push_back("<name>child</name>");
     vs.push_back("</dir>");
     vs.push_back("</dir>");
-    root = ct.constructTree(vs);
+    root = ConstructTree::constructTree(vs);
 
     ASSERT_NE(root, nullptr);
     EXPECT_EQ(root->name, "root");
@@ -48,7 +47,7 @@ TEST(ConstructTreeTests, AddingDirNode) {
     vs.push_back("<name>child1</name>");
     vs.push_back("</dir>");
     vs.push_back("</dir>");
-    root = ct.constructTree(vs);
+    root = ConstructTree::constructTree(vs);
 
     ASSERT_NE(root, nullptr);
     EXPECT_EQ(root->name, "root");
@@ -65,12 +64,11 @@ TEST(ConstructTreeTests, AddingDirNode) {
     EXPECT_EQ(d->children.size(), 1);
 
     vs.clear();
-    root = ct.constructTree(vs);
+    root = ConstructTree::constructTree(vs);
     EXPECT_EQ(root, nullptr);
 }
 
 TEST(ConstructTreeTests, AddingFileNode) {
-    ConstructTree ct;
     vector<string> vs;
     vs.push_back("<dir>");
     vs.push_back("<name>dir</name>");
@@ -79,7 +77,7 @@ TEST(ConstructTreeTests, AddingFileNode) {
     vs.push_back("<length>100 b</length>");
     vs.push_back("<type>config</type");
     vs.push_back("</dir>");
-    Node *root = ct.constructTree(vs);
+    Node *root = ConstructTree::constructTree(vs);
 
     ASSERT_NE(root, nullptr);
     EXPECT_EQ(root->name, "dir");
