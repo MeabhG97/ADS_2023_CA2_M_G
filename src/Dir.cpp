@@ -14,11 +14,5 @@ int Dir::count() {
 }
 
 int Dir::getSize() {
-    int total = 0;
-
-    for(int i = 0; i < children.size(); i++){
-        total += children[i]->getSize();
-    }
-
-    return total;
+    return 0;
 }

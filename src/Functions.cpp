@@ -19,7 +19,25 @@ int Functions::memorySize(Node *node, string dir) {
         return -1;
     }
 
-    return node->getSize();
+    queue<Node *> q;
+    int totalSize = 0;
+    q.push(node);
+
+    while(q.size() > 0){
+        node = q.front();
+        q.pop();
+
+        totalSize += node->getSize();
+
+        if(dynamic_cast<Dir *>(node)){
+            Dir* d = dynamic_cast<Dir*>(node);
+            for(int i = 0; i < d->children.size(); i++){
+                q.push(d->children[i]);
+            }
+        }        
+    }
+
+    return totalSize;
 }
 
 void Functions::pruneEmpty(Node *node) {
