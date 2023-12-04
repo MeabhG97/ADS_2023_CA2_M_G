@@ -5,5 +5,6 @@ add_library(src
     Dir.hpp Dir.cpp
     File.hpp File.cpp
     ConstructTree.hpp ConstructTree.cpp
+    Functions.hpp Functions.cpp
 )
 set_target_properties(src PROPERTIES LINKER_LANGUAGE CXX)

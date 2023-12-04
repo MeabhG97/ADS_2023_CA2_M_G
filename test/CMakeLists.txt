@@ -10,6 +10,7 @@ add_executable(tests
     XMLValidationTests.cpp
     TreeTests.cpp
     ConstructTreeTests.cpp
+    FunctionsTests.cpp
 )
 
 target_link_libraries(
