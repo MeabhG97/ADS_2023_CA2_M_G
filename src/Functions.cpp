@@ -2,11 +2,24 @@
 
 int Functions::countItems(Node *node, string dir) {
     node = findDir(node, dir);
-    return 0;
+
+    if (node == nullptr) {
+        return -1;
+    }
+
+    // Subtract one as the count memeber function will
+    // include the starting node rather than just its contents.
+    return node->count() - 1;
 }
 
 int Functions::memorySize(Node *node, string dir) {
-    return 0;
+    node = findDir(node, dir);
+
+    if(node == nullptr){
+        return -1;
+    }
+
+    return node->getSize();
 }
 
 void Functions::pruneEmpty(Node *node) {
@@ -35,7 +48,7 @@ Node *Functions::findDir(Node *node, string dir) {
     Dir *d = dynamic_cast<Dir *>(node);
     for (int i = 0; i < d->children.size(); i++) {
         node = findDir(d->children[i], dir);
-        if(node != nullptr){
+        if (node != nullptr) {
             return node;
         }
     }

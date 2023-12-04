@@ -11,4 +11,6 @@ public:
     int size;
     string type;
     File(string, int, string);
+    int count();
+    int getSize();
 };

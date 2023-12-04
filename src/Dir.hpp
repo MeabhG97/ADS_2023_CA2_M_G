@@ -8,6 +8,8 @@ using namespace std;
 
 class Dir : public Node {
 public:
-    vector<Node*> children;
+    vector<Node *> children;
     Dir(string);
+    int count();
+    int getSize();
 };
