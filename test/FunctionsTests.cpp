@@ -241,3 +241,55 @@ TEST(FunctionsTests, pruneEmptyTests) {
     d = dynamic_cast<Dir*>(root);
     EXPECT_EQ(d->children.size(), 2);
 }
+
+TEST(FunctionsTests, findPathTests){
+    vector<string> vs;
+    vs.push_back("<dir>");
+    vs.push_back("<name>dir</name>");
+    vs.push_back("</dir>");
+    Node *root = ConstructTree::constructTree(vs);
+
+    string path = Functions::findPath(root, "dir");
+    EXPECT_EQ(path, "/dir");
+
+    vs.clear();
+    vs.push_back("<dir>");
+    vs.push_back("<name>dir</name>");
+    vs.push_back("<file>");
+    vs.push_back("<name>file1</name>");
+    vs.push_back("<length>100 b</length>");
+    vs.push_back("<type>type</type>");
+    vs.push_back("</file>");
+    vs.push_back("</dir>");
+    root = ConstructTree::constructTree(vs);
+
+    path = Functions::findPath(root, "file1");
+    EXPECT_EQ(path, "/dir/file1");
+
+    vs.clear();
+    vs.push_back("<dir>");
+    vs.push_back("<name>dir</name>");
+    vs.push_back("<file>");
+    vs.push_back("<name>file1</name>");
+    vs.push_back("<length>100 b</length>");
+    vs.push_back("<type>type</type>");
+    vs.push_back("</file>");
+    vs.push_back("<file>");
+    vs.push_back("<name>file2</name>");
+    vs.push_back("<length>200 b</length>");
+    vs.push_back("<type>type</type>");
+    vs.push_back("</file>");
+    vs.push_back("<file>");
+    vs.push_back("<name>file3</name>");
+    vs.push_back("<length>300 b</length>");
+    vs.push_back("<type>type</type>");
+    vs.push_back("</file>");
+    vs.push_back("</dir>");
+    root = ConstructTree::constructTree(vs);
+
+    path = Functions::findPath(root, "file3");
+    EXPECT_EQ(path, "/dir/file3");
+
+    path = Functions::findPath(root, "na");
+    EXPECT_EQ(path, "");
+}

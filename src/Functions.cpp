@@ -42,7 +42,7 @@ int Functions::memorySize(Node *node, string dir) {
     return totalSize;
 }
 
-Node* Functions::pruneEmpty(Node *node) {
+Node *Functions::pruneEmpty(Node *node) {
     if (node == nullptr) {
         return nullptr;
     }
@@ -57,9 +57,9 @@ Node* Functions::pruneEmpty(Node *node) {
         pruneEmpty(d->children[i], d);
     }
 
-    //Root is empty
+    // Root is empty
     if (d->children.size() == 0) {
-        delete(d);
+        delete (d);
         return nullptr;
     }
 
@@ -80,7 +80,7 @@ void Functions::pruneEmpty(Node *node, Dir *parent) {
     for (int i = 0; i < d->children.size(); i++) {
         pruneEmpty(d->children[i], d);
     }
-    
+
     if (d->children.size() == 0) {
         d->prune(node, parent);
     }
@@ -88,7 +88,55 @@ void Functions::pruneEmpty(Node *node, Dir *parent) {
     return;
 }
 
-string Functions::findPath(Node *node, string dir) {
+string Functions::findPath(Node *node, string name) {
+    string path = "/";
+
+    if (node->name == name) {
+        return path += node->name;
+    }
+
+    if (dynamic_cast<File *>(node)) {
+        return "";
+    }
+
+    Dir *d = dynamic_cast<Dir *>(node);
+
+    path += node->name + "/";
+
+    for (int i = 0; i < d->children.size(); i++) {
+        string s = findPath(d->children[i], name, path);
+        if(s != ""){
+            return s;
+        }
+    }
+
+    path = path.substr(0, node->name.length() + 1);
+
+    return "";
+}
+
+string Functions::findPath(Node *node, string name, string path) {
+    if (node->name == name) {
+        return path += node->name;
+    }
+
+    if (dynamic_cast<File *>(node)) {
+        return "";
+    }
+
+    Dir *d = dynamic_cast<Dir *>(node);
+
+    path += node->name + "/";
+
+    for (int i = 0; i < d->children.size(); i++) {
+        string s = findPath(d->children[i], name, path);
+        if(s != ""){
+            return s;
+        }
+    }
+
+    path = path.substr(0, node->name.length() + 1);
+
     return "";
 }
 

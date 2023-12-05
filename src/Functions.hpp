@@ -20,4 +20,5 @@ public:
 
 private:
     static void pruneEmpty(Node *, Dir *);
+    static string findPath(Node *, string, string);
 };
