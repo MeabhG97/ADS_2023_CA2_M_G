@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <vector>
 
 #include "Node.hpp"
@@ -12,4 +13,5 @@ public:
     Dir(string);
     int count();
     int getSize();
+    void prune(Node *, Dir *);
 };
