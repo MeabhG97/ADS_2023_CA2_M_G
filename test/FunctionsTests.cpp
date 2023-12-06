@@ -182,9 +182,9 @@ TEST(FunctionsTests, pruneEmptyTests) {
 
     root = Functions::pruneEmpty(root);
     EXPECT_NE(root, nullptr);
-    EXPECT_TRUE(dynamic_cast<Dir*>(root));
+    EXPECT_TRUE(dynamic_cast<Dir *>(root));
 
-    Dir *d = dynamic_cast<Dir*>(root);
+    Dir *d = dynamic_cast<Dir *>(root);
     EXPECT_EQ(d->children.size(), 1);
 
     vs.clear();
@@ -210,9 +210,9 @@ TEST(FunctionsTests, pruneEmptyTests) {
 
     root = Functions::pruneEmpty(root);
     EXPECT_NE(root, nullptr);
-    EXPECT_TRUE(dynamic_cast<Dir*>(root));
+    EXPECT_TRUE(dynamic_cast<Dir *>(root));
 
-    d = dynamic_cast<Dir*>(root);
+    d = dynamic_cast<Dir *>(root);
     EXPECT_EQ(d->children.size(), 3);
 
     vs.clear();
@@ -236,13 +236,13 @@ TEST(FunctionsTests, pruneEmptyTests) {
 
     root = Functions::pruneEmpty(root);
     EXPECT_NE(root, nullptr);
-    EXPECT_TRUE(dynamic_cast<Dir*>(root));
+    EXPECT_TRUE(dynamic_cast<Dir *>(root));
 
-    d = dynamic_cast<Dir*>(root);
+    d = dynamic_cast<Dir *>(root);
     EXPECT_EQ(d->children.size(), 2);
 }
 
-TEST(FunctionsTests, findPathTests){
+TEST(FunctionsTests, findPathTests) {
     vector<string> vs;
     vs.push_back("<dir>");
     vs.push_back("<name>dir</name>");

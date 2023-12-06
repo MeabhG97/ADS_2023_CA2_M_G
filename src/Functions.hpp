@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <queue>
 #include <string>
 
@@ -21,4 +22,5 @@ public:
 private:
     static void pruneEmpty(Node *, Dir *);
     static string findPath(Node *, string, string);
+    static void printNode(Node *, string&);
 };

@@ -1,9 +1,7 @@
 #include "Functions.hpp"
 
-#include <iostream>
-
-int Functions::countItems(Node *node, string dir) {
-    node = findDir(node, dir);
+int Functions::countItems(Node *node, string name) {
+    node = findDir(node, name);
 
     if (node == nullptr) {
         return -1;
@@ -14,8 +12,8 @@ int Functions::countItems(Node *node, string dir) {
     return node->count() - 1;
 }
 
-int Functions::memorySize(Node *node, string dir) {
-    node = findDir(node, dir);
+int Functions::memorySize(Node *node, string name) {
+    node = findDir(node, name);
 
     if (node == nullptr) {
         return -1;
@@ -105,7 +103,7 @@ string Functions::findPath(Node *node, string name) {
 
     for (int i = 0; i < d->children.size(); i++) {
         string s = findPath(d->children[i], name, path);
-        if(s != ""){
+        if (s != "") {
             return s;
         }
     }
@@ -130,25 +128,58 @@ string Functions::findPath(Node *node, string name, string path) {
 
     for (int i = 0; i < d->children.size(); i++) {
         string s = findPath(d->children[i], name, path);
-        if(s != ""){
+        if (s != "") {
             return s;
         }
     }
 
-    path = path.substr(0, node->name.length() + 1);
+    path = path.substr(0, path.length() - (node->name.length() + 1));
 
     return "";
 }
 
-void Functions::displayString(Node *node, string dir) {
+void Functions::displayString(Node *node, string name) {
+    node = findDir(node, name);
+
+    if (node == nullptr) {
+        return;
+    }
+
+    string indent = "";
+
+    printNode(node, indent);
 }
 
-Node *Functions::findDir(Node *node, string dir) {
+void Functions::printNode(Node *node, string& indent) {
+    if (node == nullptr) {
+        return;
+    }
+
+    if (dynamic_cast<Dir *>(node)) {
+        Dir *d = dynamic_cast<Dir *>(node);
+        cout << indent << "|" << "-" << d->name << endl;
+
+        indent += " ";
+
+        for(int i = 0; i < d->children.size(); i++){
+            printNode(d->children[i], indent);
+        }
+
+        indent.pop_back();
+    }
+
+    if (dynamic_cast<File *>(node)) {
+        File *f = dynamic_cast<File *>(node);
+        cout << indent << "|" << "-" << f->name << " #" << f->size << endl;
+    }
+}
+
+Node *Functions::findDir(Node *node, string name) {
     if (node == nullptr) {
         return nullptr;
     }
 
-    if (node->name == dir) {
+    if (node->name == name) {
         return node;
     }
 
@@ -158,7 +189,7 @@ Node *Functions::findDir(Node *node, string dir) {
 
     Dir *d = dynamic_cast<Dir *>(node);
     for (int i = 0; i < d->children.size(); i++) {
-        node = findDir(d->children[i], dir);
+        node = findDir(d->children[i], name);
         if (node != nullptr) {
             return node;
         }
