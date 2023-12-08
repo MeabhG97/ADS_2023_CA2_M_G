@@ -16,11 +16,11 @@ public:
     static int memorySize(Node *, string);
     static Node *pruneEmpty(Node *);
     static string findPath(Node *, string);
-    static void displayString(Node *, string);
+    static string printDir(Node *, string);
     static Node *findDir(Node *, string);
 
 private:
     static void pruneEmpty(Node *, Dir *);
     static string findPath(Node *, string, string);
-    static void printNode(Node *, string&);
+    static string printTree(Node *, string&, string&);
 };

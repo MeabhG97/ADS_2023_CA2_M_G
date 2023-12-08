@@ -1,5 +1,6 @@
 #include "Functions.hpp"
 
+// Returns number of files or -1 if not found.
 int Functions::countItems(Node *node, string name) {
     node = findDir(node, name);
 
@@ -12,6 +13,7 @@ int Functions::countItems(Node *node, string name) {
     return node->count() - 1;
 }
 
+// Returns memory size of -1 if not found
 int Functions::memorySize(Node *node, string name) {
     node = findDir(node, name);
 
@@ -40,6 +42,7 @@ int Functions::memorySize(Node *node, string name) {
     return totalSize;
 }
 
+// Removes empty directories
 Node *Functions::pruneEmpty(Node *node) {
     if (node == nullptr) {
         return nullptr;
@@ -86,6 +89,7 @@ void Functions::pruneEmpty(Node *node, Dir *parent) {
     return;
 }
 
+// returns empty string if item not found
 string Functions::findPath(Node *node, string name) {
     string path = "/";
 
@@ -138,31 +142,34 @@ string Functions::findPath(Node *node, string name, string path) {
     return "";
 }
 
-void Functions::displayString(Node *node, string name) {
+// Doesn't print if not found
+string Functions::printDir(Node *node, string name) {
     node = findDir(node, name);
 
     if (node == nullptr) {
-        return;
+        return "";
     }
 
     string indent = "";
+    string tree = "";
 
-    printNode(node, indent);
+    return printTree(node, indent, tree);
 }
 
-void Functions::printNode(Node *node, string& indent) {
+string Functions::printTree(Node *node, string &indent, string &tree) {
     if (node == nullptr) {
-        return;
+        return tree;
     }
 
     if (dynamic_cast<Dir *>(node)) {
         Dir *d = dynamic_cast<Dir *>(node);
-        cout << indent << "|" << "-" << d->name << endl;
+
+        tree += indent + "|" + "-" + d->name + "\n";
 
         indent += " ";
 
-        for(int i = 0; i < d->children.size(); i++){
-            printNode(d->children[i], indent);
+        for (int i = 0; i < d->children.size(); i++) {
+            printTree(d->children[i], indent, tree);
         }
 
         indent.pop_back();
@@ -170,8 +177,11 @@ void Functions::printNode(Node *node, string& indent) {
 
     if (dynamic_cast<File *>(node)) {
         File *f = dynamic_cast<File *>(node);
-        cout << indent << "|" << "-" << f->name << " #" << f->size << endl;
+
+        tree += indent + "|" + f->name + " #" + to_string(f->size) + "b\n";
     }
+
+    return tree;
 }
 
 Node *Functions::findDir(Node *node, string name) {

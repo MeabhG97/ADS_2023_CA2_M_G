@@ -1,6 +1,7 @@
 #include "../src/ConstructTree.hpp"
 #include "../src/FileReader.hpp"
 #include "../src/Functions.hpp"
+#include "../src/Menu.hpp"
 #include "../src/Node.hpp"
 #include "../src/XMLValidator.hpp"
 
@@ -19,5 +20,15 @@ int main() {
     }
 
     Node *root = ConstructTree::constructTree(fileContents);
-    Functions::displayString(root, "ADS_Single_LinkedList_Exercises");
+    Menu::root = root;
+
+    string opt;
+    while(true){
+        Functions::printDir(root, root->name);
+        Menu::displayMenu();
+        cin.clear();
+        cin >> opt;
+        Menu::selectOption(opt);
+        opt.clear();
+    }
 }

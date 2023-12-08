@@ -293,3 +293,41 @@ TEST(FunctionsTests, findPathTests) {
     path = Functions::findPath(root, "na");
     EXPECT_EQ(path, "");
 }
+
+TEST(FunctionsTests, printTreeTests){
+    vector<string> vs;
+    vs.push_back("<dir>");
+    vs.push_back("<name>dir</name>");
+    vs.push_back("</dir>");
+    Node *root = ConstructTree::constructTree(vs);
+
+    string tree = Functions::printDir(root, "dir");
+    EXPECT_EQ(tree, "|-dir\n");
+
+    vs.clear();
+    vs.push_back("<dir>");
+    vs.push_back("<name>dir</name>");
+    vs.push_back("<file>");
+    vs.push_back("<name>file1</name>");
+    vs.push_back("<length>100 b</length>");
+    vs.push_back("<type>type</type>");
+    vs.push_back("</file>");
+    vs.push_back("<file>");
+    vs.push_back("<name>file2</name>");
+    vs.push_back("<length>200 b</length>");
+    vs.push_back("<type>type</type>");
+    vs.push_back("</file>");
+    vs.push_back("<file>");
+    vs.push_back("<name>file3</name>");
+    vs.push_back("<length>300 b</length>");
+    vs.push_back("<type>type</type>");
+    vs.push_back("</file>");
+    vs.push_back("</dir>");
+    root = ConstructTree::constructTree(vs);
+
+    tree = Functions::printDir(root, "dir");
+    EXPECT_EQ(tree, "|-dir\n |file1 #100b\n |file2 #200b\n |file3 #300b\n");
+
+    tree = Functions::printDir(root, "not found");
+    EXPECT_EQ(tree, "");
+}
