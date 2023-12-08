@@ -11,6 +11,7 @@ add_executable(tests
     TreeTests.cpp
     ConstructTreeTests.cpp
     FunctionsTests.cpp
+    FileReaderTests.cpp
 )
 
 target_link_libraries(

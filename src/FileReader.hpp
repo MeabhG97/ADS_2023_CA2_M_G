@@ -11,7 +11,5 @@ using namespace std;
 class FileReader {
 public:
     vector<string> readFile(string);
-
-private:
     string trim(string);
 };
