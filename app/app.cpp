@@ -6,7 +6,17 @@
 #include "../src/XMLValidator.hpp"
 
 int main() {
-    const string file = "../../files/vs_sample_simple.xml";
+    string file = "";
+    string opt;
+
+    while(file == ""){
+        Menu::displayFiles();
+        cin.clear();
+        cin >> opt;
+        file = Menu::selectFile(opt);
+        opt.clear();
+    }
+
     XMLValidator v;
     FileReader fr;
     vector<string> fileContents = fr.readFile(file);
@@ -19,12 +29,12 @@ int main() {
         cout << "Valid XML" << endl;
     }
 
-    Node *root = ConstructTree::constructTree(fileContents);
-    Menu::root = root;
+    Menu::root = ConstructTree::constructTree(fileContents);;
 
-    string opt;
-    while(true){
-        Functions::printDir(root, root->name);
+    string dirTree = Functions::printDir(Menu::root, Menu::root->name);
+    cout << dirTree << endl;
+
+    while(!Menu::quit){
         Menu::displayMenu();
         cin.clear();
         cin >> opt;

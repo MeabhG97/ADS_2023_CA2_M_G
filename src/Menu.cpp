@@ -2,6 +2,7 @@
 
 Node *Menu::root = nullptr;
 string Menu::input = "";
+bool Menu::quit = false;
 
 void Menu::displayMenu() {
     cout << "\n\n"
@@ -10,6 +11,7 @@ void Menu::displayMenu() {
          << "3. Remove empty folders\n"
          << "4. Print path of folder or file\n"
          << "5. Display contents of a folder\n"
+         << "6. Quit\n"
          << "Enter number of chosen option"
          << endl;
 }
@@ -71,6 +73,11 @@ void Menu::selectOption(string &opt) {
             }
             break;
         }
+        case 6: {
+            cout << "Goodbye" << endl;
+            quit = true;
+            break;
+        }
         default: {
             cout << "Not an option" << endl;
             break;
@@ -81,4 +88,43 @@ void Menu::selectOption(string &opt) {
     } catch (out_of_range &e) {
         cout << "Invalid option" << endl;
     }
+}
+
+void Menu::displayFiles() {
+    cout << "\n\n"
+         << "1. vs_sample_simple.xml\n"
+         << "2. vs_sample.xml\n"
+         << "3. unity_sample.xml\n"
+         << "Enter number of chosen option"
+         << endl;
+}
+
+string Menu::selectFile(string &opt) {
+    try {
+        int o = stoi(opt);
+        switch (o) {
+        case 1: {
+            return "../../files/vs_sample_simple.xml";
+            break;
+        }
+        case 2: {
+            return "../../files/vs_sample.xml";
+            break;
+        }
+        case 3: {
+            return "../../files/unity_sample.xml";
+            break;
+        }
+        default: {
+            cout << "Not an option" << endl;
+            break;
+        }
+        }
+    } catch (invalid_argument &e) {
+        cout << "Invalid option" << endl;
+    } catch (out_of_range &e) {
+        cout << "Invalid option" << endl;
+    }
+
+    return "";
 }
